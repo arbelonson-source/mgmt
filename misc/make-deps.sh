@@ -89,7 +89,7 @@ if [ -n "$BREW" -a "$RUNNER_OS" != "Linux" ]; then
 fi
 
 if [ -n "$PACMAN" ]; then
-	$sudo_command $PACMAN -S --noconfirm --asdeps --needed libvirt augeas rubygems libpcap ragel
+	$sudo_command $PACMAN -S --noconfirm --asdeps --needed libvirt augeas rubygems libpcap ragel6
 fi
 fold_end "Install dependencies"
 
