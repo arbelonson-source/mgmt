@@ -240,7 +240,7 @@ $(PROGRAM): build/mgmt-${GOHOSTOS}-${GOHOSTARCH} ## build an mgmt binary for cur
 $(PROGRAM).static: $(FILES_STAMP) $(GO_FILES) $(MCL_FILES) $(MISC_FILES) $(PO_FILES) go.mod go.sum
 	@echo "Building: $(PROGRAM).static, version: $(SVERSION)..."
 	go generate
-	go build $(TRIMPATH) -a -installsuffix cgo -tags netgo -ldflags '-extldflags "-static" -X main.program=$(PROGRAM) -X main.version=$(SVERSION) -s -w' -o $(PROGRAM).static $(BUILD_FLAGS);
+	go build $(TRIMPATH) -a -installsuffix cgo -tags netgo,osusergo -ldflags '-extldflags "-static" -X main.program=$(PROGRAM) -X main.version=$(SVERSION) -s -w' -o $(PROGRAM).static $(BUILD_FLAGS);
 
 # Export these target-specific variables to the recursive make below.
 export LDFLAGS BUILD_FLAGS
