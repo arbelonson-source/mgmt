@@ -2,7 +2,7 @@
 # modified slightly, originally from:
 # https://raw.githubusercontent.com/dlenski/travis-encrypt-sh/master/travis-encrypt
 
-if [[ $# < 2 ]]; then
+if [[ $# -lt 2 ]]; then
 	p="$(basename $0)"
 	here=$(mktemp)
 	git remote -v 2>/dev/null | grep -oP '(?<=github.com[:/])([^/]+/[^/]+?)(?=\.git| )' > "$here"

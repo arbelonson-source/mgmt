@@ -53,24 +53,24 @@ repo_files() {
 
 fail_test() {
 	if in_env github; then
-		echo "::error::$@" >&2
+		echo "::error::$*" >&2
 	else
-		echo -e "FAIL: $@" >&2
+		echo -e "FAIL: $*" >&2
 	fi
 	exit 1
 }
 
 function run-test() {
-	"$@" || failures=$( [ -n "$failures" ] && echo "$failures\\n$@" || echo "$@" )
+	"$@" || failures=$( [ -n "$failures" ] && echo "$failures\\n$*" || echo "$*" )
 }
 
 # travis expander helpers from:
 # https://github.com/travis-ci/travis-rubies/blob/build/build.sh
 fold_start() {
 	if in_env travis; then
-		echo -e "travis_fold:start:$1\033[33;1m${@:2}\033[0m"
+		echo -e "travis_fold:start:$1\033[33;1m${*:2}\033[0m"
 	elif in_env github; then
-		echo "::group::$@"
+		echo "::group::$*"
 	fi
 }
 fold_end() {

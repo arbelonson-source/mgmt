@@ -15,7 +15,7 @@ fi
 # if we want to run this test as root, use build tag -root to ask each test...
 XSUDO=''
 XTAGS=()
-if [[ "$@" = *"--root"* ]]; then
+if [[ "$*" = *"--root"* ]]; then
 	if ! timeout 1s sudo -A true; then
 		echo "sudo disabled: can't run as root"
 		exit 1
@@ -33,14 +33,14 @@ fi
 failures=''
 function run-test()
 {
-	$XSUDO $@ -tags="${XTAGS[*]}" || failures=$( [ -n "$failures" ] && echo "$failures\\n$@" || echo "$@" )
+	$XSUDO "$@" -tags="${XTAGS[*]}" || failures=$( [ -n "$failures" ] && echo "$failures\\n$*" || echo "$*" )
 }
 
 # NOTE: you can run `go test` with the -tags flag to skip certain tests, eg:
 # go test -tags nodocker github.com/purpleidea/mgmt/engine/resources -v
 base=$(go list .)
-if [[ "$@" = *"--integration"* ]]; then
-	if [[ "$@" = *"--race"* ]]; then
+if [[ "$*" = *"--integration"* ]]; then
+	if [[ "$*" = *"--race"* ]]; then
 		# adding -count=1 replaces the GOCACHE=off fix that was removed
 		run-test go test -count=1 -race "${base}/integration" -v
 	else
@@ -54,7 +54,7 @@ else
 			continue # skip this special main package
 		fi
 
-		if [[ "$@" = *"--race"* ]]; then
+		if [[ "$*" = *"--race"* ]]; then
 			# split up long tests to avoid CI timeouts
 			if [ "$pkg" = "${base}/lang" ]; then # pkg lang is big!
 				for sub in `go test "${base}/lang" -list Test`; do

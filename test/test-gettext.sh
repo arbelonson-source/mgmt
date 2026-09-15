@@ -11,7 +11,7 @@ cd "${ROOT}"
 failures=''
 function run-test()
 {
-	$@ || failures=$( [ -n "$failures" ] && echo "$failures\\n$@" || echo "$@" )
+	"$@" || failures=$( [ -n "$failures" ] && echo "$failures\\n$*" || echo "$*" )
 }
 
 function gettext-strings() {

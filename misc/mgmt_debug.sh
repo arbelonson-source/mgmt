@@ -10,7 +10,7 @@ f2=`mktemp /tmp/tmp.X'X'X`
 # run the program until it ends
 # XXX: we need an --ignore-exit signal blocker too so we can ^\
 #$@ 2>&1 | tee --ignore-interrupts --ignore-exit "$f1"
-$@ 2>&1 | sigtee "$f1"
+"$@" 2>&1 | sigtee "$f1"
 
 # clean up when we're done
 function cleanup {

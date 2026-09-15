@@ -59,6 +59,7 @@ if [ -n "$YUM" ]; then
 	$sudo_command $YUM install -y gcc make rpm-build libffi-devel bsdtar mkosi || true
 	$sudo_command $YUM install -y graphviz || true # for debugging
 	$sudo_command $YUM install -y golangci-lint || true # for linting golang
+	$sudo_command $YUM install -y ShellCheck || true # for linting bash
 fi
 if [ -n "$APT" ]; then
 	$sudo_command $APT update -y
@@ -80,16 +81,17 @@ if [ -n "$APT" ]; then
 	$sudo_command $APT install -y time || true
 	$sudo_command $APT install -y inotify-tools # used by some tests
 	$sudo_command $APT install -y graphviz # for debugging
+	$sudo_command $APT install -y shellcheck || true # for linting bash
 fi
 
 # Prevent linuxbrew installing redundant deps in CI
 if [ -n "$BREW" -a "$RUNNER_OS" != "Linux" ]; then
 	# coreutils contains gtimeout, gstat, etc
-	$BREW install pkg-config libvirt augeas coreutils ragel || true
+	$BREW install pkg-config libvirt augeas coreutils ragel shellcheck || true
 fi
 
 if [ -n "$PACMAN" ]; then
-	$sudo_command $PACMAN -S --noconfirm --asdeps --needed libvirt augeas rubygems libpcap ragel
+	$sudo_command $PACMAN -S --noconfirm --asdeps --needed libvirt augeas rubygems libpcap ragel shellcheck
 fi
 fold_end "Install dependencies"
 

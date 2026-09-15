@@ -3,8 +3,8 @@
 
 while true
 do
-	echo "running: $@"
-	$@	# run some command
+	echo "running: $*"
+	"$@"	# run some command
 	ret=$?
 	if [ $ret -ne 0 ]; then
 		echo "failed with code: $ret"

@@ -15,7 +15,7 @@ cd "${ROOT}"
 failures=''
 function run-test()
 {
-	$@ || failures=$( [ -n "$failures" ] && echo "$failures\\n$@" || echo "$@" )
+	"$@" || failures=$( [ -n "$failures" ] && echo "$failures\\n$*" || echo "$*" )
 }
 
 # TODO: run more linters here if we're brave...

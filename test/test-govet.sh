@@ -13,7 +13,7 @@ make --quiet -C test	# run make in test directory to prepare any needed tools
 failures=''
 function run-test()
 {
-	$@ || failures=$( [ -n "$failures" ] && echo "$failures\\n$@" || echo "$@" )
+	"$@" || failures=$( [ -n "$failures" ] && echo "$failures\\n$*" || echo "$*" )
 }
 
 GO_VERSION=($(go version))

@@ -10,4 +10,4 @@ cd "${ROOT}"
 . test/util.sh
 
 # this test is handled as a special `go test` test
-exec test/test-gotest.sh --integration $@
+exec test/test-gotest.sh --integration "$@"
